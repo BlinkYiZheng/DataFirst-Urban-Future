@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  backend:
+    build: ./gin-boilerplate/
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+
+  frontend:
+    build: ./React-Scaffold/
+    ports:
+      - "80:80"
+    environment:
+      - REACT_APP_BACKEND_URL=http://backend:8080
+
+  db:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: 990616
+      MYSQL_DATABASE: datafirstDB
+      MYSQL_USER: yizheng
+      MYSQL_PASSWORD: 990616
+    ports:
+      - "3308:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:
